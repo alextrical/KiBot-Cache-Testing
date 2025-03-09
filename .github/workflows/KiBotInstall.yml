@@ -16,22 +16,29 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Download remote requirements file
-      run: curl https://raw.githubusercontent.com/INTI-CMNB/KiAuto/refs/heads/master/src/requirements.txt -o requirements.txt
-
     - name: Cache pip dependencies
-      uses: actions/cache@v4
+      uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('kibot-requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Install KiAuto
-      # if: steps.pip-cache.outputs.cache-hit != 'true'
+    # - name: Download remote requirements file
+    #   run: curl https://raw.githubusercontent.com/INTI-CMNB/KiBot/refs/heads/master/kibot/dep_downloader.py -o dep_downloader.py
+
+    # - name: Cache pip dependencies
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ~/.cache/pip
+    #     key: ${{ runner.os }}-pip-${{ hashFiles('dep_downloader.py') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-pip-
+
+    - name: Install KiBot
       run: |
-        pip3 install --user git+https://github.com/INTI-CMNB/KiBot.git
+        pip3 install kibot
 
     - name: Verify Installation
       run: |
-        kiauto --version || echo "KiAuto installed successfully"
+        kibot --version || echo "KiBot installed successfully"

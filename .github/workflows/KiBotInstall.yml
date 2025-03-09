@@ -25,9 +25,9 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Install KiAuto
-    if: steps.pip-cache.outputs.cache-hit != 'true'
-    run: |
-      pip3 install kiauto
+      if: steps.pip-cache.outputs.cache-hit != 'true'
+      run: |
+        pip3 install kiauto
 
     - name: Verify Installation
       run: |

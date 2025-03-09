@@ -28,9 +28,9 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Install KiAuto
-      if: steps.pip-cache.outputs.cache-hit != 'true'
+      # if: steps.pip-cache.outputs.cache-hit != 'true'
       run: |
-        pip3 install kiauto
+        pip3 install --user git+https://github.com/INTI-CMNB/KiBot.git
 
     - name: Verify Installation
       run: |

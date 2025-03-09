@@ -1,4 +1,4 @@
-name: Install KiAuto with Caching
+name: Install KiBOT with Caching
 
 on:
   workflow_dispatch:
@@ -24,17 +24,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    # - name: Download remote requirements file
-    #   run: curl https://raw.githubusercontent.com/INTI-CMNB/KiBot/refs/heads/master/kibot/dep_downloader.py -o dep_downloader.py
-
-    # - name: Cache pip dependencies
-    #   uses: actions/cache@v4
-    #   with:
-    #     path: ~/.cache/pip
-    #     key: ${{ runner.os }}-pip-${{ hashFiles('dep_downloader.py') }}
-    #     restore-keys: |
-    #       ${{ runner.os }}-pip-
-
     - name: Install KiBot
       run: |
         pip3 install kibot
@@ -42,3 +31,4 @@ jobs:
     - name: Verify Installation
       run: |
         kibot --version || echo "KiBot installed successfully"
+        kicad --version || echo "KiCAD installed successfully"

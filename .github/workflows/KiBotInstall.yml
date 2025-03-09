@@ -8,6 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Set up repository and cache APT packages
+      uses: actions/cache@v3
+      with:
+        path: /var/cache/apt/archives
+        key: ${{ runner.os }}-apt-${{ hashFiles('kicad-setup.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-apt-
+
+    - name: Add KiCad PPA and Install KiCad
+      run: |
+        echo "kicad" > kicad-setup.txt
+        sudo add-apt-repository --yes ppa:kicad/kicad-9.0-releases
+        sudo apt update
+        sudo apt install --install-recommends kicad
+
     - name: Checkout Code
       uses: actions/checkout@v4
 
